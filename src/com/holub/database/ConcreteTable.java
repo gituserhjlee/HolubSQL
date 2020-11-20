@@ -67,12 +67,7 @@ import com.holub.tools.ArrayIterator;
 	private transient boolean isDirty = false;
 	private transient LinkedList transactionStack = new LinkedList();
 
-	/**********************************************************************
-	 * Create a table with the given name and columns.
-	 * 
-	 * @param tableName the name of the table.
-	 * @param an        array of Strings that specify the column names.
-	 */
+
 	public ConcreteTable(String tableName, String[] columnNames) {
 		this.tableName = tableName;
 		this.columnNames = (String[]) columnNames.clone();
@@ -116,15 +111,15 @@ import com.holub.tools.ArrayIterator;
 	}
 
 	// ----------------------------------------------------------------------
-	public void export(Table.Exporter exporter) throws IOException {
+	public Writer export(Exporter exporter) throws IOException {
 		exporter.startTable();
 		exporter.storeMetadata(tableName, columnNames.length, rowSet.size(), new ArrayIterator(columnNames));
 
 		for (Iterator i = rowSet.iterator(); i.hasNext();)
 			exporter.storeRow(new ArrayIterator((Object[]) i.next()));
-
 		exporter.endTable();
 		isDirty = false;
+		return null;
 	}
 
 	// @import-export-end

@@ -28,7 +28,6 @@ package com.holub.database;
 
 import java.io.*;
 import java.util.*;
-import com.holub.database.Selector;
 
 /** A table is a database-like table that provides support for
  *  queries.
@@ -250,8 +249,9 @@ public interface Table extends Serializable, Cloneable
 	 *  {@link Table.Importer} argument. The table's
 	 *  "dirty" status is cleared (set false) on an export.
 	 *  @see #isDirty
+	 * @return
 	 */
-	void export( Table.Exporter importer ) throws IOException;
+	Writer export(Exporter importer ) throws IOException;
 
 	/******************************************************************* 
 	 * Used for exporting tables in various formats. Note that
@@ -267,6 +267,7 @@ public interface Table extends Serializable, Cloneable
 					Iterator columnNames )	throws IOException;
 		public void storeRow(Iterator data) throws IOException;
 		public void endTable()			 	throws IOException;
+
 	}
 
 	/******************************************************************* 

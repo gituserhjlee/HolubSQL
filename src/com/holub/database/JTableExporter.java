@@ -90,6 +90,7 @@ public class JTableExporter implements Table.Exporter
 
 	public void endTable() throws IOException {/*nothing to do*/}
 
+
 	/** Return the Concrete Product of this builder---a JTable
 	 *  initialized with the table data.
 	 */
