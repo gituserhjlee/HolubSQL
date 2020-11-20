@@ -39,7 +39,7 @@ public class HTMLExporter implements Table.Exporter {
     }
 
     public void getHTML() throws IOException {
-        File file=new File("c:/dp2020/test.html");
+        File file=new File("test.html");
         Writer out=null;
         out=new BufferedWriter(
                 new OutputStreamWriter(

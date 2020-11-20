@@ -98,9 +98,8 @@ public class UnmodifiableTable implements Table
 	public Cursor rows()
 	{	return wrapped.rows();
 	}
-	public Writer export(Exporter exporter) throws IOException
+	public void  export(Table.Exporter exporter) throws IOException
 	{	wrapped.export(exporter);
-        return null;
     }
 
 	public String	toString() 		{ return wrapped.toString();	}

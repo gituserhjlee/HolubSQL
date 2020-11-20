@@ -251,7 +251,7 @@ public interface Table extends Serializable, Cloneable
 	 *  @see #isDirty
 	 * @return
 	 */
-	Writer export(Exporter importer ) throws IOException;
+	void export( Table.Exporter importer ) throws IOException;
 
 	/******************************************************************* 
 	 * Used for exporting tables in various formats. Note that

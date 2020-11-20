@@ -111,15 +111,18 @@ import com.holub.tools.ArrayIterator;
 	}
 
 	// ----------------------------------------------------------------------
-	public Writer export(Exporter exporter) throws IOException {
-		exporter.startTable();
-		exporter.storeMetadata(tableName, columnNames.length, rowSet.size(), new ArrayIterator(columnNames));
+	public void export( Table.Exporter exporter ) throws IOException
+	{	exporter.startTable();
+		exporter.storeMetadata( tableName,
+				columnNames.length,
+				rowSet.size(),
+				new ArrayIterator(columnNames) );
 
-		for (Iterator i = rowSet.iterator(); i.hasNext();)
-			exporter.storeRow(new ArrayIterator((Object[]) i.next()));
+		for( Iterator i = rowSet.iterator(); i.hasNext(); )
+			exporter.storeRow( new ArrayIterator((Object[]) i.next()) );
+
 		exporter.endTable();
 		isDirty = false;
-		return null;
 	}
 
 	// @import-export-end

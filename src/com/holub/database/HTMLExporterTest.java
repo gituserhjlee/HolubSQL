@@ -15,7 +15,7 @@ public class HTMLExporterTest {
 
         builder.getHTML();
         StringBuffer stringBuffer=new StringBuffer();
-        File file= new File("c:/dp2020/test.html");
+        File file= new File("test.html");
         FileReader fileReader=new FileReader(file);
         int index=0;
         while((index=fileReader.read())!=-1){
