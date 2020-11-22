@@ -36,6 +36,9 @@ import com.holub.text.TokenSet;
 import com.holub.text.Scanner;
 import com.holub.text.ParseFailure;
 import com.holub.tools.ThrowableContainer;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 /***
  *  This class implements a small SQL-subset database.
@@ -322,7 +325,12 @@ public final class Database
 											+"("+ e.getMessage() +")\n";
 				throw new RuntimeException(
 									in.failure( message ).getMessage() );
+			} catch (SAXException e) {
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
 			}
+			return key;
 		}
 		
 		public Object put(Object key, Object value)

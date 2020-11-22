@@ -6,6 +6,7 @@ import java.util.Iterator;
 public class XMLExporter implements Table.Exporter {
     private String[] tableHead;
     private Object[][] tableData;
+    private String tableName;
     private int rowIndex = 0;
     private int height = 0;
     private int width = 0;
@@ -16,6 +17,7 @@ public class XMLExporter implements Table.Exporter {
 
     @Override
     public void storeMetadata(String tableName, int width, int height, Iterator columnNames) throws IOException {
+        this.tableName=tableName;
         this.height = height;
         this.width = width;
         tableData = new Object[height][width];
@@ -44,8 +46,7 @@ public class XMLExporter implements Table.Exporter {
         out = new BufferedWriter(
                 new OutputStreamWriter(
                         new FileOutputStream(file), "UTF-8"));
-
-        out.write("<root>");
+        out.write("<root><title>"+tableName+"</title>");
         for(int i=0;i<height;i++){
             out.write("<DATA>");
             for(int j=0;j<width;j++){

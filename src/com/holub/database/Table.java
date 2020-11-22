@@ -26,6 +26,9 @@
  */
 package com.holub.database;
 
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.*;
 
@@ -283,7 +286,7 @@ public interface Table extends Serializable, Cloneable
 	 *	</ul>
 	 */
 	public interface Importer				//{=Table.Importer}
-	{	void 	 startTable()		throws IOException;
+	{	void 	 startTable() throws IOException, SAXException, ParserConfigurationException;
 		String   loadTableName()	throws IOException;
 		int 	 loadWidth()		throws IOException;
 		Iterator loadColumnNames()	throws IOException;

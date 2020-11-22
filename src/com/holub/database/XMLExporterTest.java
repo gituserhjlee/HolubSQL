@@ -28,7 +28,7 @@ public class XMLExporterTest {
             stringBuffer.append((char)index);
 
         }
-        assertThat(stringBuffer.toString(), is(equalTo("<root><DATA><First>Allen</First><Last>Holub</Last><Id>1</Id></DATA><DATA><First>Ichabod</First><Last>Crane</Last><Id>2</Id></DATA><DATA><First>Rip</First><Last>VanWinkle</Last><Id>3</Id></DATA><DATA><First>Goldie</First><Last>Locks</Last><Id>4</Id></DATA></root>")));
+        assertThat(stringBuffer.toString(), is(equalTo("<root><title>people</title><DATA><First>Allen</First><Last>Holub</Last><Id>1</Id></DATA><DATA><First>Ichabod</First><Last>Crane</Last><Id>2</Id></DATA><DATA><First>Rip</First><Last>VanWinkle</Last><Id>3</Id></DATA><DATA><First>Goldie</First><Last>Locks</Last><Id>4</Id></DATA></root>")));
         fileReader.close();
 
 
@@ -49,7 +49,7 @@ public class XMLExporterTest {
             stringBuffer2.append((char)index2);
 
         }
-        assertThat(stringBuffer2.toString(), is(equalTo("<root><DATA><name>chungang</name><location>seoul</location></DATA><DATA><name>seoul</name><location>seoul</location></DATA><DATA><name>woosong</name><location>daejeon</location></DATA></root>")));
+        assertThat(stringBuffer2.toString(), is(equalTo("<root><title>university</title><DATA><name>chungang</name><location>seoul</location></DATA><DATA><name>seoul</name><location>seoul</location></DATA><DATA><name>woosong</name><location>daejeon</location></DATA></root>")));
         fileReader2.close();
     }
 }

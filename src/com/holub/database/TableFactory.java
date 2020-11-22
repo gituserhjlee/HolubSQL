@@ -26,6 +26,9 @@
  */
 package com.holub.database;
 
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 
 /***
@@ -46,9 +49,8 @@ public class TableFactory
 	/** Create a table from information provided by a
 	 *	{@link Table.Importer} object.
 	 */
-	public static Table create( Table.Importer importer ) 
-												throws IOException
-	{	return new ConcreteTable( importer );
+	public static Table create( Table.Importer importer )
+			throws IOException, ParserConfigurationException, SAXException {	return new ConcreteTable( importer );
 	}
 
 	/** This convenience method is equivalent to
@@ -56,8 +58,7 @@ public class TableFactory
 	 *
 	 *	@see #load(String,File)
 	 */
-	public static Table load( String name ) throws IOException
-	{	return load( name, new File(".") );
+	public static Table load( String name ) throws IOException, ParserConfigurationException, SAXException {	return load( name, new File(".") );
 	} 
 
 	/** This convenience method is equivalent to
@@ -66,8 +67,7 @@ public class TableFactory
 	 *	@see #load(String,File)
 	 */
 	public static Table load( String name, String location )
-												throws IOException
-	{	return load( name, new File(location) );
+			throws IOException, ParserConfigurationException, SAXException {	return load( name, new File(location) );
 	} 
 
 	/* Create a table from some form stored on the disk.
@@ -87,8 +87,7 @@ public class TableFactory
 	 * 			recognized.
 	 */
 	public static Table load( String name, File directory )
-													throws IOException
-	{
+			throws IOException, ParserConfigurationException, SAXException {
 		if( !(name.endsWith( ".csv" ) || name.endsWith( ".CSV" )) )
 			throw new java.io.IOException(
 					 "Filename (" +name+ ") does not end in "
