@@ -88,7 +88,9 @@ public class CSVImporter implements Table.Importer
 	public Iterator loadColumnNames()	throws IOException
 	{	return new ArrayIterator(columnNames);  //{=CSVImporter.ArrayIteratorCall}
 	}
-
+	public String[] loadColumn(){
+		return columnNames;
+	}
 	public Iterator loadRow()			throws IOException
 	{	Iterator row = null;
 		if( in != null )

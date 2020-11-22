@@ -805,13 +805,31 @@ public final class Database
 		}
 		else if( in.matchAdvance(SELECT) != null )
 		{	List columns = idList();
-
 			String into = null;
 			if( in.matchAdvance(INTO) != null )
 				into = in.required(IDENTIFIER);
 
 			in.required( FROM );
 			List requestedTableNames = idList();
+
+			if(columns==null){
+				//select * 인 경우임
+				columns=new ArrayList();
+				for(int i=0;i<requestedTableNames.size();i++){//테이블마다
+
+					FileReader file=new FileReader("c:/dp2020/"+requestedTableNames.get(i) +".csv") ;
+					BufferedReader br=new BufferedReader(file);
+					CSVImporter builder=new CSVImporter(br);
+					builder.startTable();
+					for(int j=0;j<builder.loadWidth();j++){
+						String []col;
+						col=builder.loadColumn();
+						columns.add(col[j]);
+					}
+
+
+				}
+			}
 
 			Expression where = (in.matchAdvance(WHERE) == null)
 								? null : expr();
