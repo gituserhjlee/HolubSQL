@@ -5,31 +5,35 @@ import java.io.*;
 import java.util.Iterator;
 
 public class HTMLExporter implements Table.Exporter {
-    private String [] tableHead;
+    private String[] tableHead;
     private Object[][] tableData;
-    private int rowIndex=0;
-
+    private int rowIndex = 0;
+    private int height = 0;
+    private int width = 0;
 
     @Override
     public void startTable() throws IOException {
-        rowIndex=0;
+        rowIndex = 0;
     }
+
     @Override
     public void storeMetadata(String tableName, int width, int height, Iterator columnNames) throws IOException {
-        tableData=new Object[height][width];
-        tableHead=new String[width];
+        this.height = height;
+        this.width = width;
+        tableData = new Object[height][width];
+        tableHead = new String[width];
 
-        int index=0;
-        while(columnNames.hasNext())
-            tableHead[index++]=columnNames.next().toString();
+        int index = 0;
+        while (columnNames.hasNext())
+            tableHead[index++] = columnNames.next().toString();
     }
 
     @Override
     public void storeRow(Iterator data) throws IOException {
-       int index=0;
-       while(data.hasNext())
-           tableData[rowIndex][index++]=data.next();
-       ++rowIndex;
+        int index = 0;
+        while (data.hasNext())
+            tableData[rowIndex][index++] = data.next();
+        ++rowIndex;
     }
 
 
@@ -38,27 +42,37 @@ public class HTMLExporter implements Table.Exporter {
 
     }
 
-    public void getHTML() throws IOException {
-        File file=new File("test.html");
-        Writer out=null;
-        out=new BufferedWriter(
+    public void getHTML(String name) throws IOException {
+        File file = new File(name + ".html");
+        Writer out = null;
+        out = new BufferedWriter(
                 new OutputStreamWriter(
                         new FileOutputStream(file), "UTF-8"));
-        out.write("<html>" +
-                        "<body>" +
-                        "<table>" +
-                        "<th>"+tableHead[0]+"</th>" +
-                        "<th>"+tableHead[1]+"</th>" +
-                        "<tr><td>"+tableData[0][0]+"</td><td>"+tableData[0][1]+"</td></tr>"+
-                        "</table>" +
-                        "</body>" +
-                        "</html>"
+        out.write("<html><body><table border=\"1\">"
+        );
+        for (int i = 0; i < tableHead.length; i++) {
+            out.write(
+                    "<th>" + tableHead[i] + "</th>"
 
+            );
+        }
+        for (int i = 0; i < height; i++) {
+            out.write("<tr>");
+            for (int j = 0; j < width; j++) {
+                out.write(
+                        "<td>" + tableData[i][j] + "</td>"
                 );
+            }
+            out.write("</tr>");
+
+        }
+
+        out.write(
+                "</table></body></html>"
+        );
         out.close();
 
     }
 
-//어떤 데이터가 들어오면 그걸 table로 만들어서 html파일로 바꿔서 보여주면 될듯.
 
 }
