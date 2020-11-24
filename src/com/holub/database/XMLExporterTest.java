@@ -18,10 +18,10 @@ public class XMLExporterTest {
         people.insert( new String[]{ "Goldie",	"Locks" ,"4"	} );
         XMLExporter builder1=new XMLExporter();
         people.export(builder1);
-        builder1.getXML("people");
+        builder1.accept(new getFileVisitor("people"));
 
         StringBuffer stringBuffer=new StringBuffer();
-        File file= new File("people.xml");
+        File file= new File("c:/dp2020/people.xml");
         FileReader fileReader=new FileReader(file);
         int index=0;
         while((index=fileReader.read())!=-1){
@@ -39,10 +39,10 @@ public class XMLExporterTest {
         university.insert( new String[]{ "woosong",	"daejeon" } );
         XMLExporter builder2=new XMLExporter();
         university.export(builder2);
-        builder2.getXML("university");
+        builder2.accept(new getFileVisitor("university"));
 
         StringBuffer stringBuffer2=new StringBuffer();
-        File file2= new File("university.xml");
+        File file2= new File("c:/dp2020/university.xml");
         FileReader fileReader2=new FileReader(file2);
         int index2=0;
         while((index2=fileReader2.read())!=-1){

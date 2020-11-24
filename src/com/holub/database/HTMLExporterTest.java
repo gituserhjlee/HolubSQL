@@ -16,11 +16,10 @@ public class HTMLExporterTest {
         people.insert( new String[]{ "Goldie",	"Locks" ,"4"	} );
         HTMLExporter builder1=new HTMLExporter();
         people.export(builder1);
-
-        builder1.getHTML("people");
+        builder1.accept(new getFileVisitor("people"));
 
         StringBuffer stringBuffer=new StringBuffer();
-        File file= new File("people.html");
+        File file= new File("c:/dp2020/people.html");
         FileReader fileReader=new FileReader(file);
         int index=0;
         while((index=fileReader.read())!=-1){
@@ -37,11 +36,10 @@ public class HTMLExporterTest {
         university.insert( new String[]{ "woosong",	"daejeon" } );
         HTMLExporter builder2=new HTMLExporter();
         university.export(builder2);
-
-        builder2.getHTML("university");
+        builder2.accept(new getFileVisitor("university"));
 
         StringBuffer stringBuffer2=new StringBuffer();
-        File file2= new File("university.html");
+        File file2= new File("c:/dp2020/university.html");
         FileReader fileReader2=new FileReader(file2);
         int index2=0;
         while((index2=fileReader2.read())!=-1){

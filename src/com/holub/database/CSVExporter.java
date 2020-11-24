@@ -26,8 +26,11 @@
  */
 package com.holub.database;
 
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.util.*;
+import java.util.Iterator;
 
 /***
  *	Pass this exporter to a {@link Table#export} implementation to
@@ -60,44 +63,65 @@ import java.util.*;
  * @see CSVImporter
  */
 
-public class CSVExporter implements Table.Exporter
-{	private final Writer out;
-	private 	  int	 width;
+public class CSVExporter implements Table.Exporter {
+    private final Writer out;
+    private int width;
 
-	public CSVExporter( Writer out )
-	{	this.out = out;
-	}
+    public CSVExporter(Writer out) {
+        this.out = out;
+    }
 
-	public void storeMetadata( String tableName,
-							   int width,
-							   int height,
-							   Iterator columnNames ) throws IOException
+    @Override
+    public void accept(Visitor visitor) throws IOException {
+        visitor.visit(this);
+    }
 
-	{	this.width = width;
-		out.write(tableName == null ? "<anonymous>" : tableName );
-		out.write("\n");
-		storeRow( columnNames ); // comma separated list of columns ids
-	}
+    public void storeMetadata(String tableName,
+                              int width,
+                              int height,
+                              Iterator columnNames) throws IOException {
+        this.width = width;
+        out.write(tableName == null ? "<anonymous>" : tableName);
+        out.write("\n");
+        storeRow(columnNames); // comma separated list of columns ids
+    }
 
-	public void storeRow( Iterator data ) throws IOException
-	{	int i = width;
-		while( data.hasNext() )
-		{	Object datum = data.next();
+    public void storeRow(Iterator data) throws IOException {
+        int i = width;
+        while (data.hasNext()) {
+            Object datum = data.next();
 
-			// Null columns are represented by an empty field
-			// (two commas in a row). There's nothing to write
-			// if the column data is null.
-			if( datum != null )	
-				out.write( datum.toString() );
+            // Null columns are represented by an empty field
+            // (two commas in a row). There's nothing to write
+            // if the column data is null.
+            if (datum != null)
+                out.write(datum.toString());
 
-			if( --i > 0 )
-				out.write(",\t");
-		}
-		out.write("\n");
-	}
+            if (--i > 0)
+                out.write(",\t");
+        }
+        out.write("\n");
 
-	public void startTable() throws IOException {/*nothing to do*/}
-	public void endTable()   throws IOException {/*nothing to do*/}
+    }
 
+    public void startTable() throws IOException {/*nothing to do*/}
 
+    public void endTable() throws IOException {/*nothing to do*/}
+
+    public static class Test {
+        public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+            Table testcsv = TableFactory.create("testcsv",
+                    new String[]{"Id", "hello"});
+            testcsv.insert(new String[]{"1", "안녕하세요"});
+            testcsv.insert(new String[]{"2", "헬로"});
+            testcsv.insert(new String[]{"3", "구텐탁"});
+            testcsv.insert(new String[]{"4", "니하오"});
+            Writer out = new FileWriter("testcsv");
+            CSVExporter builder1 = new CSVExporter(out);
+            testcsv.export(builder1);
+            builder1.accept(new getFileVisitor("c:/dp2020/testcsv.csv", testcsv));
+            out.close();
+
+        }
+    }
 }

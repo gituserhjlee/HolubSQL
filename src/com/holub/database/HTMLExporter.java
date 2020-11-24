@@ -12,6 +12,11 @@ public class HTMLExporter implements Table.Exporter {
     private int width = 0;
 
     @Override
+    public void accept(Visitor visitor) throws IOException {
+        visitor.visit(this, tableHead, tableData,height, width);
+    }
+
+    @Override
     public void startTable() throws IOException {
         rowIndex = 0;
     }
@@ -42,37 +47,37 @@ public class HTMLExporter implements Table.Exporter {
 
     }
 
-    public void getHTML(String name) throws IOException {
-        File file = new File(name + ".html");
-        Writer out = null;
-        out = new BufferedWriter(
-                new OutputStreamWriter(
-                        new FileOutputStream(file), "UTF-8"));
-        out.write("<html><body><table border=\"1\">"
-        );
-        for (int i = 0; i < tableHead.length; i++) {
-            out.write(
-                    "<th>" + tableHead[i] + "</th>"
-
-            );
-        }
-        for (int i = 0; i < height; i++) {
-            out.write("<tr>");
-            for (int j = 0; j < width; j++) {
-                out.write(
-                        "<td>" + tableData[i][j] + "</td>"
-                );
-            }
-            out.write("</tr>");
-
-        }
-
-        out.write(
-                "</table></body></html>"
-        );
-        out.close();
-
-    }
+//    public void getHTML(String name) throws IOException {
+//        File file = new File(name + ".html");
+//        Writer out = null;
+//        out = new BufferedWriter(
+//                new OutputStreamWriter(
+//                        new FileOutputStream(file), "UTF-8"));
+//        out.write("<html><body><table border=\"1\">"
+//        );
+//        for (int i = 0; i < tableHead.length; i++) {
+//            out.write(
+//                    "<th>" + tableHead[i] + "</th>"
+//
+//            );
+//        }
+//        for (int i = 0; i < height; i++) {
+//            out.write("<tr>");
+//            for (int j = 0; j < width; j++) {
+//                out.write(
+//                        "<td>" + tableData[i][j] + "</td>"
+//                );
+//            }
+//            out.write("</tr>");
+//
+//        }
+//
+//        out.write(
+//                "</table></body></html>"
+//        );
+//        out.close();
+//
+//    }
 
 
 }

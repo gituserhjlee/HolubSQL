@@ -262,7 +262,8 @@ public interface Table extends Serializable, Cloneable
 	 *  requires it without impacting the Table's clients at all.
 	 */
 	public interface Exporter				//{=Table.Exporter}
-	{	public void startTable()			throws IOException;
+	{	void accept(Visitor visitor) throws IOException;
+		public void startTable()			throws IOException;
 		public void storeMetadata(
 					String tableName,
 					int width,

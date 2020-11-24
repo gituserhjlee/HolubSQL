@@ -10,6 +10,12 @@ public class XMLExporter implements Table.Exporter {
     private int rowIndex = 0;
     private int height = 0;
     private int width = 0;
+
+    @Override
+    public void accept(Visitor visitor) throws IOException {
+        visitor.visit(this,tableHead, tableData, height,width, tableName);
+    }
+
     @Override
     public void startTable() throws IOException {
         rowIndex = 0;
@@ -40,21 +46,21 @@ public class XMLExporter implements Table.Exporter {
     public void endTable() throws IOException {
 
     }
-    public void getXML(String name)throws IOException{
-        File file = new File(name + ".xml");
-        Writer out = null;
-        out = new BufferedWriter(
-                new OutputStreamWriter(
-                        new FileOutputStream(file), "UTF-8"));
-        out.write("<root><title>"+tableName+"</title>");
-        for(int i=0;i<height;i++){
-            out.write("<DATA>");
-            for(int j=0;j<width;j++){
-                out.write("<"+tableHead[j]+">"+tableData[i][j]+"</"+tableHead[j]+">");
-            }
-            out.write("</DATA>");
-        }
-        out.write("</root>");
-        out.close();
-    }
+//    public void getXML(String name)throws IOException{
+//        File file = new File(name + ".xml");
+//        Writer out = null;
+//        out = new BufferedWriter(
+//                new OutputStreamWriter(
+//                        new FileOutputStream(file), "UTF-8"));
+//        out.write("<root><title>"+tableName+"</title>");
+//        for(int i=0;i<height;i++){
+//            out.write("<DATA>");
+//            for(int j=0;j<width;j++){
+//                out.write("<"+tableHead[j]+">"+tableData[i][j]+"</"+tableHead[j]+">");
+//            }
+//            out.write("</DATA>");
+//        }
+//        out.write("</root>");
+//        out.close();
+//    }
 }
