@@ -1,6 +1,5 @@
 package com.holub.database;
-
-import java.io.*;
+import java.io.IOException;
 import java.util.Iterator;
 
 public class XMLExporter implements Table.Exporter {
@@ -13,7 +12,7 @@ public class XMLExporter implements Table.Exporter {
 
     @Override
     public void accept(Visitor visitor) throws IOException {
-        visitor.visit(this,tableHead, tableData, height,width, tableName);
+        visitor.visit(this, tableHead, tableData, height, width, tableName);
     }
 
     @Override
@@ -23,7 +22,7 @@ public class XMLExporter implements Table.Exporter {
 
     @Override
     public void storeMetadata(String tableName, int width, int height, Iterator columnNames) throws IOException {
-        this.tableName=tableName;
+        this.tableName = tableName;
         this.height = height;
         this.width = width;
         tableData = new Object[height][width];

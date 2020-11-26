@@ -1,7 +1,6 @@
 package com.holub.database;
 
-import javax.swing.text.html.HTML;
-import java.io.*;
+import java.io.IOException;
 import java.util.Iterator;
 
 public class HTMLExporter implements Table.Exporter {
@@ -13,7 +12,7 @@ public class HTMLExporter implements Table.Exporter {
 
     @Override
     public void accept(Visitor visitor) throws IOException {
-        visitor.visit(this, tableHead, tableData,height, width);
+        visitor.visit(this, tableHead, tableData, height, width);
     }
 
     @Override

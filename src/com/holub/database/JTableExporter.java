@@ -26,9 +26,9 @@
  */
 package com.holub.database;
 
-import java.io.*;
-import java.util.*;
 import javax.swing.*;
+import java.io.IOException;
+import java.util.Iterator;
 
 /***
  * A class that demonstrates using an Exporter to create a UI.
@@ -36,23 +36,23 @@ import javax.swing.*;
  * creates a {@link JTable} that holds a representation of the
  * {@link Table}.
  * <PRE>
-	Table people = TableFactory.create( "people",
-				   new String[]{ "First", "Last"		} );
-	people.insert( new String[]{ "Allen",	"Holub" 	} );
-	people.insert( new String[]{ "Ichabod",	"Crane" 	} );
-	people.insert( new String[]{ "Rip",		"VanWinkle" } );
-	people.insert( new String[]{ "Goldie",	"Locks" 	} );
+ Table people = TableFactory.create( "people",
+ new String[]{ "First", "Last"		} );
+ people.insert( new String[]{ "Allen",	"Holub" 	} );
+ people.insert( new String[]{ "Ichabod",	"Crane" 	} );
+ people.insert( new String[]{ "Rip",		"VanWinkle" } );
+ people.insert( new String[]{ "Goldie",	"Locks" 	} );
 
-	javax.swing.JFrame frame = new javax.swing.JFrame();
-	frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+ javax.swing.JFrame frame = new javax.swing.JFrame();
+ frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
-	<b>JTableExporter tableBuilder = new JTableExporter();</b>
-	<b>people.export( tableBuilder );</b>
+ <b>JTableExporter tableBuilder = new JTableExporter();</b>
+ <b>people.export( tableBuilder );</b>
 
-	frame.getContentPane().add(
-			new JScrollPane( <b>tableBuilder.getJTable()</b> ) );
-	frame.pack();
-	frame.setVisible( true );
+ frame.getContentPane().add(
+ new JScrollPane( <b>tableBuilder.getJTable()</b> ) );
+ frame.pack();
+ frame.setVisible( true );
  * </PRE>
  *
  * @include /etc/license.txt
@@ -60,69 +60,71 @@ import javax.swing.*;
  * @see CSVExporter
  */
 
-public class JTableExporter implements Table.Exporter
-{
-	private String[]	columnHeads;
-	private Object[][]	contents;
-	private int			rowIndex = 0;
+public class JTableExporter implements Table.Exporter {
+    private String[] columnHeads;
+    private Object[][] contents;
+    private int rowIndex = 0;
 
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-	}
-	public JScrollPane accept2(Visitor visitor){
-		return visitor.visit(this);
-	}
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
 
-	public void startTable() throws IOException { rowIndex = 0;	}
+    public JScrollPane accept2(Visitor visitor) {
+        return visitor.visit(this);
+    }
 
-	public void storeMetadata( String tableName,
-							   int width,
-							   int height,
-							   Iterator columnNames ) throws IOException
-	{
-		contents	= new Object[height][width];
-		columnHeads = new String[width];
+    public void startTable() throws IOException {
+        rowIndex = 0;
+    }
 
-		int columnIndex = 0;
-		while( columnNames.hasNext() )
-			columnHeads[columnIndex++] = columnNames.next().toString();
-	}
+    public void storeMetadata(String tableName,
+                              int width,
+                              int height,
+                              Iterator columnNames) throws IOException {
+        contents = new Object[height][width];
+        columnHeads = new String[width];
 
-	public void storeRow( Iterator data ) throws IOException
-	{	int columnIndex = 0;
-		while( data.hasNext() )
-			contents[rowIndex][columnIndex++] = data.next();
-		++rowIndex;
-	}
+        int columnIndex = 0;
+        while (columnNames.hasNext())
+            columnHeads[columnIndex++] = columnNames.next().toString();
+    }
 
-	public void endTable() throws IOException {/*nothing to do*/}
+    public void storeRow(Iterator data) throws IOException {
+        int columnIndex = 0;
+        while (data.hasNext())
+            contents[rowIndex][columnIndex++] = data.next();
+        ++rowIndex;
+    }
+
+    public void endTable() throws IOException {/*nothing to do*/}
 
 
-	/** Return the Concrete Product of this builder---a JTable
-	 *  initialized with the table data.
-	 */
-	public JTable getJTable()
-	{	return new JTable( contents, columnHeads );
-	}
+    /**
+     * Return the Concrete Product of this builder---a JTable
+     * initialized with the table data.
+     */
+    public JTable getJTable() {
+        return new JTable(contents, columnHeads);
+    }
 
-	/** A unit test for the JTableExporter class
-	 * Run it with <em>java com.holub.database.JTableExporter\$Test</em>.
-	 */
-	public static class Test
-	{ 	public static void main( String[] args ) throws IOException
-		{	
-			Table people = TableFactory.create( "people",
-						   new String[]{ "First", "Last"		} );
-			people.insert( new String[]{ "Allen",	"Holub" 	} );
-			people.insert( new String[]{ "Ichabod",	"Crane" 	} );
-			people.insert( new String[]{ "Rip",		"VanWinkle" } );
-			people.insert( new String[]{ "Goldie",	"Locks" 	} );
+    /**
+     * A unit test for the JTableExporter class
+     * Run it with <em>java com.holub.database.JTableExporter\$Test</em>.
+     */
+    public static class Test {
+        public static void main(String[] args) throws IOException {
+            Table people = TableFactory.create("people",
+                    new String[]{"First", "Last"});
+            people.insert(new String[]{"Allen", "Holub"});
+            people.insert(new String[]{"Ichabod", "Crane"});
+            people.insert(new String[]{"Rip", "VanWinkle"});
+            people.insert(new String[]{"Goldie", "Locks"});
 
-			JTableExporter tableBuilder = new JTableExporter();
-			people.export( tableBuilder );
-			tableBuilder.accept(new getFileVisitor(tableBuilder));
+            JTableExporter tableBuilder = new JTableExporter();
+            people.export(tableBuilder);
+            tableBuilder.accept(new getFileVisitor(tableBuilder));
 
-		}
-	}
+        }
+    }
 }

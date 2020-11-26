@@ -26,11 +26,12 @@
  */
 package com.holub.database;
 
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.Iterator;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 
 /***
  *	Pass this exporter to a {@link Table#export} implementation to
@@ -109,7 +110,7 @@ public class CSVExporter implements Table.Exporter {
     public void endTable() throws IOException {/*nothing to do*/}
 
     public static class Test {
-        public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+        public static void main(String[] args) throws IOException {
             Table testcsv = TableFactory.create("testcsv",
                     new String[]{"Id", "hello"});
             testcsv.insert(new String[]{"1", "안녕하세요"});
@@ -121,6 +122,16 @@ public class CSVExporter implements Table.Exporter {
             testcsv.export(builder1);
             builder1.accept(new getFileVisitor("c:/dp2020/testcsv.csv", testcsv));
             out.close();
+
+            StringBuffer stringBuffer = new StringBuffer();
+            File file = new File("c:/dp2020/testcsv.csv");
+            FileReader fileReader = new FileReader(file);
+            int index = 0;
+            while ((index = fileReader.read()) != -1) {
+                stringBuffer.append((char) index);
+            }
+            assertThat(stringBuffer.toString(), is(equalTo("testcsv\nId,\thello\n1,\t안녕하세요\n2,\t헬로\n3,\t구텐탁\n4,\t니하오\n")));
+            fileReader.close();
 
         }
     }

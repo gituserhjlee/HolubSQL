@@ -6,7 +6,6 @@ import java.io.*;
 public class getFileVisitor implements Visitor {
     String name;
     JTableExporter jTableExporter;
-    JScrollPane jp;
     Table table;
 
     public getFileVisitor(String name) {
@@ -40,7 +39,7 @@ public class getFileVisitor implements Visitor {
     public void visit(HTMLExporter htmlExporter, String[] tableHead, Object[][] tableData, int height, int width) throws IOException {
         System.out.println("Making html");
 
-        File file = new File("c:/dp2020/"+name + ".html");
+        File file = new File("c:/dp2020/" + name + ".html");
         Writer out = null;
         out = new BufferedWriter(
                 new OutputStreamWriter(
@@ -73,7 +72,7 @@ public class getFileVisitor implements Visitor {
     @Override
     public JScrollPane visit(JTableExporter jTableExporter) {
         System.out.println("Making jtable");
-        JScrollPane jp=jTableExporter.accept2(new decorateVisitor(jTableExporter));
+        JScrollPane jp = jTableExporter.accept2(new decorateVisitor(jTableExporter));
         javax.swing.JFrame frame = new javax.swing.JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(jp);
@@ -86,7 +85,7 @@ public class getFileVisitor implements Visitor {
     public void visit(XMLExporter xmlExporter, String[] tableHead, Object[][] tableData, int height, int width, String tableName) throws IOException {
         System.out.println("Making xml");
 
-        File file = new File("c:/dp2020/"+name + ".xml");
+        File file = new File("c:/dp2020/" + name + ".xml");
         Writer out = null;
         out = new BufferedWriter(
                 new OutputStreamWriter(
