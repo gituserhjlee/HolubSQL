@@ -17,7 +17,7 @@ public class HTMLExporterTest {
         HTMLExporter builder1=new HTMLExporter();
         people.export(builder1);
         builder1.accept(new getFileVisitor("people"));
-
+        builder1.accept(new decorateVisitor("people"));
         StringBuffer stringBuffer=new StringBuffer();
         File file= new File("c:/dp2020/people.html");
         FileReader fileReader=new FileReader(file);
@@ -26,7 +26,7 @@ public class HTMLExporterTest {
            stringBuffer.append((char)index);
 
         }
-        assertThat(stringBuffer.toString(), is(equalTo("<html><body><table border=\"1\"><th>First</th><th>Last</th><th>Id</th><tr><td>Allen</td><td>Holub</td><td>1</td></tr><tr><td>Ichabod</td><td>Crane</td><td>2</td></tr><tr><td>Rip</td><td>VanWinkle</td><td>3</td></tr><tr><td>Goldie</td><td>Locks</td><td>4</td></tr></table></body></html>")));
+        assertThat(stringBuffer.toString(), is(equalTo("<html><body><table border=\"1\" bordercolor=\"blue\"><th>First</th><th>Last</th><th>Id</th><tr><td>Allen</td><td>Holub</td><td>1</td></tr><tr><td>Ichabod</td><td>Crane</td><td>2</td></tr><tr><td>Rip</td><td>VanWinkle</td><td>3</td></tr><tr><td>Goldie</td><td>Locks</td><td>4</td></tr></table></body></html>")));
         fileReader.close();
 
         Table university = TableFactory.create( "university",

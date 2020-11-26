@@ -6,6 +6,7 @@ import java.io.*;
 public class getFileVisitor implements Visitor {
     String name;
     JTableExporter jTableExporter;
+    JScrollPane jp;
     Table table;
 
     public getFileVisitor(String name) {
@@ -70,14 +71,15 @@ public class getFileVisitor implements Visitor {
     }
 
     @Override
-    public void visit(JTableExporter jTableExporter) {
+    public JScrollPane visit(JTableExporter jTableExporter) {
         System.out.println("Making jtable");
+        JScrollPane jp=jTableExporter.accept2(new decorateVisitor(jTableExporter));
         javax.swing.JFrame frame = new javax.swing.JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(
-                new JScrollPane(jTableExporter.getJTable()));
+        frame.getContentPane().add(jp);
         frame.pack();
         frame.setVisible(true);
+        return jp;
     }
 
     @Override

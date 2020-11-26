@@ -70,6 +70,9 @@ public class JTableExporter implements Table.Exporter
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
+	public JScrollPane accept2(Visitor visitor){
+		return visitor.visit(this);
+	}
 
 	public void startTable() throws IOException { rowIndex = 0;	}
 
@@ -116,17 +119,10 @@ public class JTableExporter implements Table.Exporter
 			people.insert( new String[]{ "Rip",		"VanWinkle" } );
 			people.insert( new String[]{ "Goldie",	"Locks" 	} );
 
-//			javax.swing.JFrame frame = new javax.swing.JFrame();
-//			frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-
 			JTableExporter tableBuilder = new JTableExporter();
 			people.export( tableBuilder );
 			tableBuilder.accept(new getFileVisitor(tableBuilder));
 
-//			frame.getContentPane().add(
-//					new JScrollPane( tableBuilder.getJTable() ) );
-//			frame.pack();
-//			frame.setVisible( true );
 		}
 	}
 }
