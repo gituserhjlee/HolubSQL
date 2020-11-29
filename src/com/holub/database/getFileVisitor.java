@@ -41,7 +41,7 @@ public class getFileVisitor implements Visitor {
                 new OutputStreamWriter(
                         new FileOutputStream(file), "UTF-8"));
 
-        HTMLExporter builder=new HTMLExporter(out);
+        HTMLExporter builder = new HTMLExporter(out);
         table.export(builder);
         out.close();
 
@@ -68,7 +68,7 @@ public class getFileVisitor implements Visitor {
         out = new BufferedWriter(
                 new OutputStreamWriter(
                         new FileOutputStream(file), "UTF-8"));
-        XMLExporter builder=new XMLExporter(out);
+        XMLExporter builder = new XMLExporter(out);
         table.export(builder);
         out.close();
 

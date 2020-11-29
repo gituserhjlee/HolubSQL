@@ -22,7 +22,7 @@ public class HTMLExporterTest {
         HTMLExporter builder1 = new HTMLExporter(out);
         people.export(builder1);
         out.close();
-        File file=new File("c:/dp2020/people");
+        File file = new File("c:/dp2020/people");
         StringBuffer stringBuffer = new StringBuffer();
         FileReader fileReader = new FileReader(file);
         int index = 0;
@@ -62,10 +62,10 @@ public class HTMLExporterTest {
         HTMLExporter builder2 = new HTMLExporter(out1);
         university.export(builder2);
         out1.close();
-        File file2=new File("c:/dp2020/university");
-        StringBuffer stringBuffer2=new StringBuffer();
-        FileReader fileReader2=new FileReader(file2);
-        int index2=0;
+        File file2 = new File("c:/dp2020/university");
+        StringBuffer stringBuffer2 = new StringBuffer();
+        FileReader fileReader2 = new FileReader(file2);
+        int index2 = 0;
         while ((index2 = fileReader2.read()) != -1) {
             stringBuffer2.append((char) index2);
 

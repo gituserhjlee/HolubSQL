@@ -1,4 +1,5 @@
 package com.holub.database;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Iterator;
@@ -12,9 +13,10 @@ public class XMLExporter implements Table.Exporter {
     private int height = 0;
     private int width = 0;
 
-    public XMLExporter(Writer out){
-        this.out=out;
+    public XMLExporter(Writer out) {
+        this.out = out;
     }
+
     @Override
     public void accept(Visitor visitor) throws IOException {
         visitor.visit(this, tableHead, tableData, height, width, tableName);
@@ -39,7 +41,9 @@ public class XMLExporter implements Table.Exporter {
         while (columnNames.hasNext())
             tableHead[index++] = columnNames.next().toString();
     }
-    int rowheight=0;
+
+    int rowheight = 0;
+
     @Override
     public void storeRow(Iterator data) throws IOException {
         int index = 0;
@@ -48,11 +52,11 @@ public class XMLExporter implements Table.Exporter {
         ++rowIndex;
 
 
-            out.write("<DATA>");
-            for (int j = 0; j < width; j++) {
-                out.write("<" + tableHead[j] + ">" + tableData[rowheight][j] + "</" + tableHead[j] + ">");
-            }
-            out.write("</DATA>");
+        out.write("<DATA>");
+        for (int j = 0; j < width; j++) {
+            out.write("<" + tableHead[j] + ">" + tableData[rowheight][j] + "</" + tableHead[j] + ">");
+        }
+        out.write("</DATA>");
         rowheight++;
     }
 

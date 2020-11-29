@@ -26,8 +26,6 @@
  */
 package com.holub.database;
 
-import org.junit.Test;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Iterator;

@@ -1,4 +1,5 @@
 package com.holub.database;
+
 import org.junit.Test;
 
 import java.io.*;
@@ -16,14 +17,14 @@ public class XMLExporterTest {
         people.insert(new String[]{"Ichabod", "Crane", "2"});
         people.insert(new String[]{"Rip", "VanWinkle", "3"});
         people.insert(new String[]{"Goldie", "Locks", "4"});
-        Writer out=new FileWriter("c:/dp2020/people");
+        Writer out = new FileWriter("c:/dp2020/people");
         XMLExporter builder1 = new XMLExporter(out);
         people.export(builder1);
         out.close();
-        File file=new File("c:/dp2020/people");
-        StringBuffer stringBuffer=new StringBuffer();
-        FileReader fileReader=new FileReader(file);
-        int index=0;
+        File file = new File("c:/dp2020/people");
+        StringBuffer stringBuffer = new StringBuffer();
+        FileReader fileReader = new FileReader(file);
+        int index = 0;
         while ((index = fileReader.read()) != -1) {
             stringBuffer.append((char) index);
 
@@ -55,14 +56,14 @@ public class XMLExporterTest {
         university.insert(new String[]{"chungang", "seoul"});
         university.insert(new String[]{"seoul", "seoul"});
         university.insert(new String[]{"woosong", "daejeon"});
-        Writer out1=new FileWriter("c:/dp2020/university");
+        Writer out1 = new FileWriter("c:/dp2020/university");
         XMLExporter builder2 = new XMLExporter(out1);
         university.export(builder2);
         out1.close();
-        File file2=new File("c:/dp2020/university");
-        StringBuffer stringBuffer2=new StringBuffer();
-        FileReader fileReader2=new FileReader(file2);
-        int index2=0;
+        File file2 = new File("c:/dp2020/university");
+        StringBuffer stringBuffer2 = new StringBuffer();
+        FileReader fileReader2 = new FileReader(file2);
+        int index2 = 0;
         while ((index2 = fileReader2.read()) != -1) {
             stringBuffer2.append((char) index2);
 
@@ -70,7 +71,7 @@ public class XMLExporterTest {
 //        XMLExporter테스트
         assertThat(stringBuffer2.toString(), is(equalTo("<root><title>university</title><DATA><name>chungang</name><location>seoul</location></DATA><DATA><name>seoul</name><location>seoul</location>" +
                 "</DATA><DATA><name>woosong</name><location>daejeon</location></DATA></root>")));
-        builder2.accept(new getFileVisitor("university",university));
+        builder2.accept(new getFileVisitor("university", university));
 
         StringBuffer stringBuffer3 = new StringBuffer();
         File file3 = new File("c:/dp2020/university.xml");
