@@ -8,10 +8,6 @@ public class getFileVisitor implements Visitor {
     JTableExporter jTableExporter;
     Table table;
 
-    public getFileVisitor(String name) {
-        this.name = name;
-    }
-
     public getFileVisitor(String name, Table table) {
         this.name = name;
         this.table = table;
@@ -67,20 +63,13 @@ public class getFileVisitor implements Visitor {
     public void visit(XMLExporter xmlExporter, String[] tableHead, Object[][] tableData, int height, int width, String tableName) throws IOException {
         System.out.println("Making xml");
 
-        File file = new File("c:/dp2020/" + name + ".xml");
+        File file = new File(name);
         Writer out = null;
         out = new BufferedWriter(
                 new OutputStreamWriter(
                         new FileOutputStream(file), "UTF-8"));
-        out.write("<root><title>" + tableName + "</title>");
-        for (int i = 0; i < height; i++) {
-            out.write("<DATA>");
-            for (int j = 0; j < width; j++) {
-                out.write("<" + tableHead[j] + ">" + tableData[i][j] + "</" + tableHead[j] + ">");
-            }
-            out.write("</DATA>");
-        }
-        out.write("</root>");
+        XMLExporter builder=new XMLExporter(out);
+        table.export(builder);
         out.close();
 
 

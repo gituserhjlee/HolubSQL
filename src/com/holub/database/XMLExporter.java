@@ -1,8 +1,10 @@
 package com.holub.database;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Iterator;
 
 public class XMLExporter implements Table.Exporter {
+    private final Writer out;
     private String[] tableHead;
     private Object[][] tableData;
     private String tableName;
@@ -10,6 +12,9 @@ public class XMLExporter implements Table.Exporter {
     private int height = 0;
     private int width = 0;
 
+    public XMLExporter(Writer out){
+        this.out=out;
+    }
     @Override
     public void accept(Visitor visitor) throws IOException {
         visitor.visit(this, tableHead, tableData, height, width, tableName);
@@ -18,6 +23,8 @@ public class XMLExporter implements Table.Exporter {
     @Override
     public void startTable() throws IOException {
         rowIndex = 0;
+        out.write("<root>");
+
     }
 
     @Override
@@ -27,39 +34,32 @@ public class XMLExporter implements Table.Exporter {
         this.width = width;
         tableData = new Object[height][width];
         tableHead = new String[width];
-
+        out.write("<title>" + tableName + "</title>");
         int index = 0;
         while (columnNames.hasNext())
             tableHead[index++] = columnNames.next().toString();
     }
-
+    int rowheight=0;
     @Override
     public void storeRow(Iterator data) throws IOException {
         int index = 0;
         while (data.hasNext())
             tableData[rowIndex][index++] = data.next();
         ++rowIndex;
+
+
+            out.write("<DATA>");
+            for (int j = 0; j < width; j++) {
+                out.write("<" + tableHead[j] + ">" + tableData[rowheight][j] + "</" + tableHead[j] + ">");
+            }
+            out.write("</DATA>");
+        rowheight++;
     }
 
     @Override
     public void endTable() throws IOException {
-
+        out.write("</root>");
+        out.close();
     }
-//    public void getXML(String name)throws IOException{
-//        File file = new File(name + ".xml");
-//        Writer out = null;
-//        out = new BufferedWriter(
-//                new OutputStreamWriter(
-//                        new FileOutputStream(file), "UTF-8"));
-//        out.write("<root><title>"+tableName+"</title>");
-//        for(int i=0;i<height;i++){
-//            out.write("<DATA>");
-//            for(int j=0;j<width;j++){
-//                out.write("<"+tableHead[j]+">"+tableData[i][j]+"</"+tableHead[j]+">");
-//            }
-//            out.write("</DATA>");
-//        }
-//        out.write("</root>");
-//        out.close();
-//    }
+
 }

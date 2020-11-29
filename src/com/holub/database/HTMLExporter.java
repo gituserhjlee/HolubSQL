@@ -54,7 +54,7 @@ public class HTMLExporter implements Table.Exporter {
     @Override
     public void storeRow(Iterator data) throws IOException {
         int index = 0;
-        int i, j = 0;
+        int j;
         while (data.hasNext())
             tableData[rowIndex][index++] = data.next();
         ++rowIndex;
