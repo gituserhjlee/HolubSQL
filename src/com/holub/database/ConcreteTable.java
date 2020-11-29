@@ -840,7 +840,7 @@ import java.util.*;
 
             List tables = new ArrayList();
             tables.add(address);
-
+            tables.add(people);
             Table result = // WHERE people.addrID = address.addrID
                     people.select(new Selector.Adapter() {
                         public boolean approve(Cursor[] tables) {
@@ -848,7 +848,7 @@ import java.util.*;
                         }
                     }, columns, tables);
 
-            print(result);
+            System.out.println(result.toString());
             System.out.println("");
 
             // Now test a three-way join

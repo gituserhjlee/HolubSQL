@@ -26,6 +26,8 @@
  */
 package com.holub.database;
 
+import org.junit.Test;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Iterator;
@@ -113,6 +115,7 @@ public class JTableExporter implements Table.Exporter {
      * Run it with <em>java com.holub.database.JTableExporter\$Test</em>.
      */
     public static class Test {
+        @org.junit.Test
         public static void main(String[] args) throws IOException {
             Table people = TableFactory.create("people",
                     new String[]{"First", "Last"});
@@ -124,6 +127,7 @@ public class JTableExporter implements Table.Exporter {
             JTableExporter tableBuilder = new JTableExporter();
             people.export(tableBuilder);
             tableBuilder.accept(new getFileVisitor(tableBuilder));
+
 
         }
     }

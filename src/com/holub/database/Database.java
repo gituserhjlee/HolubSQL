@@ -1510,7 +1510,6 @@ public final class Database {    /* The directory that represents the database.
             String participant = (String) tableNames.next();
             participantsInJoin.add(tables.get(participant));
         }
-
         // Now do the select operation. First create a Strategy
         // object that picks the correct rows, then pass that
         // object through to the primary table's select() method.

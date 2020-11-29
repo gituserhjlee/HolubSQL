@@ -26,6 +26,8 @@
  */
 package com.holub.database;
 
+import org.junit.Test;
+
 import java.io.*;
 import java.util.Iterator;
 
@@ -110,6 +112,7 @@ public class CSVExporter implements Table.Exporter {
     public void endTable() throws IOException {/*nothing to do*/}
 
     public static class Test {
+        @org.junit.Test
         public static void main(String[] args) throws IOException {
             Table testcsv = TableFactory.create("testcsv",
                     new String[]{"Id", "hello"});
@@ -117,21 +120,35 @@ public class CSVExporter implements Table.Exporter {
             testcsv.insert(new String[]{"2", "헬로"});
             testcsv.insert(new String[]{"3", "구텐탁"});
             testcsv.insert(new String[]{"4", "니하오"});
-            Writer out = new FileWriter("testcsv");
+            Writer out = new FileWriter("c:/dp2020/testcsv");
             CSVExporter builder1 = new CSVExporter(out);
             testcsv.export(builder1);
-            builder1.accept(new getFileVisitor("c:/dp2020/testcsv.csv", testcsv));
             out.close();
 
             StringBuffer stringBuffer = new StringBuffer();
-            File file = new File("c:/dp2020/testcsv.csv");
+            File file = new File("c:/dp2020/testcsv");
             FileReader fileReader = new FileReader(file);
             int index = 0;
             while ((index = fileReader.read()) != -1) {
                 stringBuffer.append((char) index);
             }
+//            CSVExporter테스트
             assertThat(stringBuffer.toString(), is(equalTo("testcsv\nId,\thello\n1,\t안녕하세요\n2,\t헬로\n3,\t구텐탁\n4,\t니하오\n")));
             fileReader.close();
+
+            builder1.accept(new getFileVisitor("c:/dp2020/testcsv.csv", testcsv));
+            File file1=new File("c:/dp2020/testcsv.csv");
+            StringBuffer stringBuffer1=new StringBuffer();
+            FileReader fileReader1=new FileReader(file1);
+            int index1=0;
+            while ((index1 = fileReader1.read()) != -1) {
+                stringBuffer1.append((char) index1);
+
+            }
+//            getFileVisitor테스트
+            assertThat(stringBuffer1.toString(), is(equalTo("testcsv\nId,\thello\n1,\t안녕하세요\n2,\t헬로\n3,\t구텐탁\n4,\t니하오\n")));
+
+
 
         }
     }

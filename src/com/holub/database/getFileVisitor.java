@@ -39,32 +39,14 @@ public class getFileVisitor implements Visitor {
     public void visit(HTMLExporter htmlExporter, String[] tableHead, Object[][] tableData, int height, int width) throws IOException {
         System.out.println("Making html");
 
-        File file = new File("c:/dp2020/" + name + ".html");
+        File file = new File(name);
         Writer out = null;
         out = new BufferedWriter(
                 new OutputStreamWriter(
                         new FileOutputStream(file), "UTF-8"));
-        out.write("<html><body><table border=\"1\">"
-        );
-        for (int i = 0; i < tableHead.length; i++) {
-            out.write(
-                    "<th>" + tableHead[i] + "</th>"
 
-            );
-        }
-        for (int i = 0; i < height; i++) {
-            out.write("<tr>");
-            for (int j = 0; j < width; j++) {
-                out.write(
-                        "<td>" + tableData[i][j] + "</td>"
-                );
-            }
-            out.write("</tr>");
-
-        }
-        out.write(
-                "</table></body></html>"
-        );
+        HTMLExporter builder=new HTMLExporter(out);
+        table.export(builder);
         out.close();
 
     }
