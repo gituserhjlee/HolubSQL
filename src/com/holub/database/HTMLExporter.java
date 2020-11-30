@@ -11,7 +11,7 @@ public class HTMLExporter implements Table.Exporter {
     private int rowIndex = 0;
     private int height = 0;
     private int width = 0;
-    int rowheight = 0;
+    private int rowheight = 0;
 
     public HTMLExporter(Writer out) {
         this.out = out;

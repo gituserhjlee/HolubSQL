@@ -33,7 +33,7 @@ public class XMLExporterTest {
         assertThat(stringBuffer.toString(), is(equalTo("<root><title>people</title><DATA><First>Allen</First><Last>Holub</Last><Id>1</Id></DATA><DATA><First>Ichabod</First><Last>Crane</Last>" +
                 "<Id>2</Id></DATA><DATA><First>Rip</First><Last>VanWinkle</Last><Id>3</Id></DATA><DATA><First>Goldie</First><Last>Locks</Last><Id>4</Id></DATA></root>")));
 
-        builder1.accept(new getFileVisitor("c:/dp2020/people.xml", people));
+        builder1.accept(new getFileVisitor("people", people));
 
         StringBuffer stringBuffer1 = new StringBuffer();
         File file1 = new File("c:/dp2020/people.xml");
@@ -81,6 +81,7 @@ public class XMLExporterTest {
             stringBuffer3.append((char) index3);
 
         }
+//        getFileVisitor테스트
         assertThat(stringBuffer3.toString(), is(equalTo("<root><title>university</title><DATA><name>chungang</name><location>seoul</location></DATA><DATA><name>seoul</name><location>seoul</location>" +
                 "</DATA><DATA><name>woosong</name><location>daejeon</location></DATA></root>")));
         fileReader2.close();

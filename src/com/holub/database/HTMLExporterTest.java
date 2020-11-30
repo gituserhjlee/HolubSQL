@@ -34,7 +34,7 @@ public class HTMLExporterTest {
         assertThat(stringBuffer.toString(), is(equalTo("<html><body>people<table border=\"1\"><th>First</th><th>Last</th><th>Id</th><tr><td>Allen</td><td>Holub</td>" +
                 "<td>1</td></tr><tr><td>Ichabod</td><td>Crane</td><td>2</td></tr><tr><td>Rip</td><td>VanWinkle</td><td>3</td></tr><tr><td>Goldie</td><td>Locks</td><td>4</td></tr></table></body></html>")));
 
-        builder1.accept(new getFileVisitor("c:/dp2020/people.html", people));
+        builder1.accept(new getFileVisitor("people", people));
         builder1.accept(new decorateVisitor("people"));
         File file1 = new File("c:/dp2020/people.html");
         StringBuffer stringBuffer1 = new StringBuffer();
@@ -44,7 +44,7 @@ public class HTMLExporterTest {
             stringBuffer1.append((char) index1);
 
         }
-//        getFileVisitor테스트
+//        getFileVisitor,decorateVisitor테스트
         assertThat(stringBuffer1.toString(), is(equalTo("<html><body>people<table border=\"1\" bordercolor=\"blue\"><th>First</th><th>Last</th><th>Id</th><tr><td>Allen</td><td>Holub</td>" +
                 "<td>1</td></tr><tr><td>Ichabod</td><td>Crane</td><td>2</td></tr><tr><td>Rip</td><td>VanWinkle</td><td>3</td></tr><tr><td>Goldie</td><td>Locks</td><td>4</td></tr></table></body></html>")));
 
@@ -74,8 +74,8 @@ public class HTMLExporterTest {
         assertThat(stringBuffer2.toString(), is(equalTo("<html><body>university<table border=\"1\"><th>name</th><th>location</th><tr><td>chungang</td><td>seoul</td></tr><tr><td>seoul</td><td>seoul</td>" +
                 "</tr><tr><td>woosong</td><td>daejeon</td></tr></table></body></html>")));
 
-        builder2.accept(new getFileVisitor("c:/dp2020/university.html", university));
-        builder2.accept(new decorateVisitor("university"));
+        builder2.accept(new getFileVisitor("university", university));
+//        builder2.accept(new decorateVisitor("university"));
         StringBuffer stringBuffer3 = new StringBuffer();
         File file3 = new File("c:/dp2020/university.html");
         FileReader fileReader3 = new FileReader(file3);
@@ -84,8 +84,9 @@ public class HTMLExporterTest {
             stringBuffer3.append((char) index3);
 
         }
-//        getFileVisitor테스트
-        assertThat(stringBuffer3.toString(), is(equalTo("<html><body>university<table border=\"1\" bordercolor=\"blue\"><th>name</th><th>location</th><tr><td>chungang</td><td>seoul</td></tr><tr><td>seoul</td><td>seoul</td>" +
+//        getFileVisitor, decorateVisitor테스트
+        assertThat(stringBuffer3.toString(), is(equalTo("<html><body>university<table border=\"1\"><th>name</th><th>location</th><tr><td>chungang</td><td>seoul</td></tr><tr>" +
+                "<td>seoul</td><td>seoul</td>" +
                 "</tr><tr><td>woosong</td><td>daejeon</td></tr></table></body></html>")));
 
         fileReader2.close();

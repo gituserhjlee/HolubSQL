@@ -21,7 +21,7 @@ public class getFileVisitor implements Visitor {
     @Override
     public void visit(CSVExporter csvExporter) throws IOException {
         System.out.println("Making csv");
-        File file = new File(name);
+        File file = new File("c:/dp2020/"+name+".csv");
         Writer out2 = new BufferedWriter(
                 new OutputStreamWriter(
                         new FileOutputStream(file), "UTF-8"));
@@ -35,7 +35,7 @@ public class getFileVisitor implements Visitor {
     public void visit(HTMLExporter htmlExporter, String[] tableHead, Object[][] tableData, int height, int width) throws IOException {
         System.out.println("Making html");
 
-        File file = new File(name);
+        File file = new File("c:/dp2020/"+name+".html");
         Writer out = null;
         out = new BufferedWriter(
                 new OutputStreamWriter(
@@ -63,7 +63,7 @@ public class getFileVisitor implements Visitor {
     public void visit(XMLExporter xmlExporter, String[] tableHead, Object[][] tableData, int height, int width, String tableName) throws IOException {
         System.out.println("Making xml");
 
-        File file = new File(name);
+        File file = new File("c:/dp2020/"+name+".xml");
         Writer out = null;
         out = new BufferedWriter(
                 new OutputStreamWriter(

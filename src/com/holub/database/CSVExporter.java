@@ -134,7 +134,7 @@ public class CSVExporter implements Table.Exporter {
             assertThat(stringBuffer.toString(), is(equalTo("testcsv\nId,\thello\n1,\t안녕하세요\n2,\t헬로\n3,\t구텐탁\n4,\t니하오\n")));
             fileReader.close();
 
-            builder1.accept(new getFileVisitor("c:/dp2020/testcsv.csv", testcsv));
+            builder1.accept(new getFileVisitor("testcsv", testcsv));
             File file1 = new File("c:/dp2020/testcsv.csv");
             StringBuffer stringBuffer1 = new StringBuffer();
             FileReader fileReader1 = new FileReader(file1);

@@ -12,6 +12,7 @@ public class XMLExporter implements Table.Exporter {
     private int rowIndex = 0;
     private int height = 0;
     private int width = 0;
+    private int rowheight = 0;
 
     public XMLExporter(Writer out) {
         this.out = out;
@@ -42,7 +43,7 @@ public class XMLExporter implements Table.Exporter {
             tableHead[index++] = columnNames.next().toString();
     }
 
-    int rowheight = 0;
+
 
     @Override
     public void storeRow(Iterator data) throws IOException {
