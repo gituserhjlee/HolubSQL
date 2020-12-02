@@ -111,7 +111,7 @@ public class CSVExporter implements Table.Exporter {
 
     public static class Test {
         @org.junit.Test
-        public static void main(String[] args) throws IOException {
+        public void CSV() throws IOException {
             Table testcsv = TableFactory.create("testcsv",
                     new String[]{"Id", "hello"});
             testcsv.insert(new String[]{"1", "안녕하세요"});

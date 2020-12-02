@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 
 public class XMLExporterTest {
     @Test
-    public static void main(String[] args) throws IOException {
+    public void XMLExporter() throws IOException {
         Table people = TableFactory.create("people",
                 new String[]{"First", "Last", "Id"});
         people.insert(new String[]{"Allen", "Holub", "1"});

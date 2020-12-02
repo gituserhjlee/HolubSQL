@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
 
 public class HTMLExporterTest {
     @Test
-    public static void main(String[] args) throws IOException {
+    public void HTML() throws IOException {
         Table people = TableFactory.create("people",
                 new String[]{"First", "Last", "Id"});
         people.insert(new String[]{"Allen", "Holub", "1"});
