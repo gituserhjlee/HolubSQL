@@ -859,8 +859,8 @@ public final class Database {    /* The directory that represents the database.
             in.required(FROM);
             List requestedTableNames = idList();
 
-            if (columns == null) {
-                //select * 인 경우임
+            if (columns == null&&requestedTableNames.size()>1) {
+                //select * 이면서 from 뒤에 테이블이 여러개오는 경우
                 columns = new ArrayList();
                 for (int i = 0; i < requestedTableNames.size(); i++) {//테이블마다
 

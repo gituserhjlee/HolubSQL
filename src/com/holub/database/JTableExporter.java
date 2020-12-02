@@ -116,7 +116,7 @@ public class JTableExporter implements Table.Exporter {
      */
     public static class Test {
         @org.junit.Test
-        public void Jtable() throws IOException {
+        public static void main(String[] args)throws IOException {
             Table people = TableFactory.create("people",
                     new String[]{"First", "Last"});
             people.insert(new String[]{"Allen", "Holub"});
